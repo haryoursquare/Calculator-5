@@ -15,7 +15,9 @@ namespace Calculator
             DigitCommand = new Command<string>(
                 execute: (string arg) =>
                 {
+                    ErrorMessage = "";
                     WriteInput(arg);
+
                 }, canExecute: (string arg) =>
                 {
                     return string.IsNullOrEmpty(ErrorMessage);
@@ -24,6 +26,7 @@ namespace Calculator
             OperatorCommand = new Command<string>(
                 execute: (string arg) =>
                 {
+                    ErrorMessage = "";
                     ProcessOperatorCommand(arg);
                 });
         }
@@ -86,6 +89,10 @@ namespace Calculator
                 }
             }
             catch (ArithmeticException e)
+            {
+                ErrorMessage = e.Message;
+            }
+            catch (Exception e)
             {
                 ErrorMessage = e.Message;
             }
@@ -170,7 +177,7 @@ namespace Calculator
                 if (errorMessage != value)
                 {
                     errorMessage = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BottomInput"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ErrorMessage"));
                 }
             }
             get

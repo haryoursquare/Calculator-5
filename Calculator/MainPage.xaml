@@ -29,56 +29,69 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-        <Grid BackgroundColor="#444">
-            <Grid.BindingContext>
-                <local:CalculatorViewModel />
-            </Grid.BindingContext>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80" />
-                <RowDefinition Height="80" />
-                <RowDefinition Height="AUTO" />
-            </Grid.RowDefinitions>
+    
 
+    <Grid BackgroundColor="#444" 
+                HorizontalOptions="Center"
+                VerticalOptions="Fill"
+                >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.BindingContext>
+            <local:CalculatorViewModel />
+        </Grid.BindingContext>
+
+        
+
+        <StackLayout Grid.Row="0">
             <FlexLayout BackgroundColor="PaleGoldenrod"
-                         Grid.ColumnSpan="4"
-                         Grid.Row="0"
-                         Margin="10"
+                    Direction="Row"
+                    AlignItems="End"
+                    JustifyContent="End"
+                    VerticalOptions="Center">
+                <Label x:Name="lblTopInput" Text="{Binding TopInput}" FontSize="28" />
+                <Label x:Name="lblOperatorInput" Text="{Binding OperatorInput}" FontSize="28" />
+                <Label x:Name="lblRightInput" Text="{Binding BottomInput}" FontSize="28" />
+            </FlexLayout>
+        </StackLayout>
+
+        <StackLayout Grid.Row="1">
+
+            <FlexLayout Margin="10"
                         Direction="Row"
                         AlignItems="End"
                         JustifyContent="End"
-                        VerticalOptions="Center">
-                <Label x:Name="lblTopInput" Text="{Binding TopInput}" FontSize="38" />
-                <Label x:Name="lblOperatorInput" Text="{Binding OperatorInput}" FontSize="38" />
-                <Label x:Name="lblRightInput" Text="{Binding BottomInput}" FontSize="38" />
+                        VerticalOptions="CenterAndExpand">
+                <Label x:Name="lblAnswer"  Text="{Binding Answer}" FontSize="36" TextColor="White" Margin="10"/>
             </FlexLayout>
+        </StackLayout>
 
-            <Label x:Name="lblAnswer" 
-                   Text="{Binding Answer}" 
-                   FontSize="48" 
-                  TextColor="White"
-                   HorizontalOptions="End" 
-                   Grid.ColumnSpan="4" 
-                   Margin="10"
-                   Grid.Row="1" />
-            
-            <Grid Grid.Row="3" Grid.ColumnSpan="4" Margin="5">
+        <StackLayout Grid.Row="2" >
+            <AbsoluteLayout IsEnabled="True" >
+                <Label AbsoluteLayout.LayoutBounds="0.5,1.5,0.5,0.5"
+                    AbsoluteLayout.LayoutFlags="All"
+                    HorizontalTextAlignment="End"
+                    x:Name="lblErrorMessageDisplay" Text="{Binding ErrorMessage}" TextColor="NavajoWhite" 
+                       ></Label>
+            </AbsoluteLayout>
+            <Grid Grid.Row="3" Grid.ColumnSpan="4" Margin="5" HorizontalOptions="CenterAndExpand">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" Text="1"
                         Style="{StaticResource plainButton}"
@@ -129,6 +142,8 @@
                         Style="{StaticResource orangeButton}"
                         Command="{Binding OperatorCommand}" CommandParameter="*"/>
             </Grid>
+        </StackLayout>
+            
             
         </Grid>
 
